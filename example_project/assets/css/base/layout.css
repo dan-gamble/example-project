@@ -1,0 +1,77 @@
+/*
+|--------------------------------------------------------------------------
+| Layout
+|--------------------------------------------------------------------------
+| Global layouts, normally used for layout out the main & aside + other
+| recurring layouts
+|
+| @namespace: lyt-
+|
+*/
+.lyt-Site {
+  max-width: var(--Grid_Constrained);
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  /* var(--Grid_Constrained) + (1px * 2) for each border */
+  @media (width >= 1602px) {
+    border-right: 1px solid var(--Color_Border);
+    border-left: @border-right;
+  }
+
+  /* Prefer to use the actual term for it (iOS) */
+  /* stylelint-disable selector-class-pattern */
+  .is-iOS.nav-IsOpen & {
+    position: fixed;
+
+    overflow: hidden;
+  }
+  /* stylelint-enable */
+}
+
+.lyt-Content_Inner {
+  .lyt-Content-mainAside & {
+    @include Grid_Container;
+  }
+}
+
+.lyt-Content_Body {
+  .lyt-Content-mainAside & {
+    @include Grid_Row;
+
+    justify-content: space-between;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Main
+|--------------------------------------------------------------------------
+|
+*/
+.lyt-Content_Main {
+  .lyt-Content-mainAside & {
+    @include Grid_Column;
+
+    @media (--xlg) {
+      width: calc((8 / 12 * 100%) - (var(--Grid_Gutter) * 2));
+    }
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Aside
+|--------------------------------------------------------------------------
+|
+*/
+.lyt-Content_Aside {
+  .lyt-Content-mainAside & {
+    @include Grid_Column;
+
+    @media (--xlg) {
+      width: calc((3 / 12 * 100%) - (var(--Grid_Gutter) * 2));
+    }
+  }
+}

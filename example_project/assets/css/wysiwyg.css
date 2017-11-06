@@ -1,0 +1,7 @@
+@import 'helpers/index.css';
+@import 'base/define.css';
+
+/* We are targetting the admin's iframe */
+/* stylelint-disable selector-max-type */
+@import 'wysiwyg/wysiwyg.css';
+/* stylelint-enable */

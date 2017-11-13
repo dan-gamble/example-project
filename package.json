@@ -3,9 +3,7 @@
   "main": "gulpfile.js",
   "dependencies": {
     "babel-polyfill": "6.23.0",
-    "es6-promise": "^4.1.0",
-    "vue": "^2.3.4",
-    "vuex": "^2.3.1"
+    "es6-promise": "^4.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
@@ -323,6 +321,10 @@
             "border-right",
             "border-bottom",
             "border-left",
+            "border-top-color",
+            "border-right-color",
+            "border-bottom-color",
+            "border-left-color",
             "border-radius",
             "border-top-left-radius",
             "border-top-right-radius",

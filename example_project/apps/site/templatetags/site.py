@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 from django_jinja import library
 from sorl.thumbnail import get_thumbnail
 
-# from ..models import Footer, Header
+from ..models import Footer, Header
 
 
 @library.global_function
@@ -97,6 +97,24 @@ def render_lazy_image(image, height=None, width=None, blur=True, max_width=1920,
     return lazy_image(image, height, width, blur, max_width, crop)
 
 
+@library.global_function
+@library.render_with('pages/navigation.html')
+@jinja2.contextfunction
+def render_navigation(context, pages, section=None, recursive=False):
+    """
+    Renders a navigation list for the given pages.
+
+    The pages should all be a subclass of PageBase, and possess a get_absolute_url() method.
+
+    You can also specify an alias for the navigation, at which point it will be set in the
+    context rather than rendered.
+    """
+    return {
+        'navigation': _navigation_entries(context, pages, section),
+        'recursive': recursive,
+    }
+
+
 @library.filter
 def md_escaped(value, inline=True):
     if not value:
@@ -118,7 +136,7 @@ def md_escaped(value, inline=True):
 
 @library.filter
 def md(value, inline=True):
-    '''
+    """
     Formats a string of Markdown text to HTML.
 
     By default it assumes that the text will be wrapped in a meaningful
@@ -129,15 +147,15 @@ def md(value, inline=True):
 
     This should never be used on untrusted user input, as Markdown by design
     allows arbitrary HTML.
-    '''
+    """
     return mark_safe(md_escaped(value, inline=inline))
 
 
-# @library.global_function
-# def get_header_content():
-#     return Header.objects.first()
+@library.global_function
+def get_header_content():
+    return Header.objects.first()
 
 
-# @library.global_function
-# def get_footer_content():
-#     return Footer.objects.first()
+@library.global_function
+def get_footer_content():
+    return Footer.objects.first()

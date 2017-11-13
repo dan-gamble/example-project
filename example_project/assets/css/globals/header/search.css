@@ -1,0 +1,37 @@
+/*
+|--------------------------------------------------------------------------
+| Search
+|--------------------------------------------------------------------------
+| @namespace: hd-
+|
+*/
+.hd-Search {
+  position: relative;
+}
+
+.hd-Search_Trigger {
+  align-items: center;
+  justify-content: center;
+
+  display: flex;
+  width: 38px;
+  height: @width;
+  padding: 0;
+
+  background-color: #fff;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  color: var(--Color_Brand);
+
+  /* stylelint-disable selector-max-type */
+  svg {
+    width: 20px;
+    height: @width;
+  }
+  /* stylelint-enable */
+}
+
+.hd-Search_Input,
+.hd-Search_Submit {
+  display: none;
+}

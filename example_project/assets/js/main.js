@@ -2,19 +2,16 @@ import 'babel-polyfill'
 import 'utils/class-list-polyfill'
 import 'utils/focus-ring'
 
-import Vue from 'vue'
-import App from './vue/App'
-
+import { Navigation } from './site'
 import LazyImage from './utils/lazy-image'
 import { externalLinks, iframeFix } from './utils'
-
-new Vue(App).$mount('#app')
 
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body || document.documentElement
   body.classList.add('util-JSEnabled')
 
   externalLinks()
+  new Navigation()
 
   const lazyImage = document.querySelector('.js-LazyImage')
   if (lazyImage) {

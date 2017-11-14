@@ -1,0 +1,69 @@
+/*
+|--------------------------------------------------------------------------
+| Grid fallback
+|--------------------------------------------------------------------------
+|
+*/
+@import 'helpers/index.css';
+
+.util-NoGrid {
+  /*
+  |--------------------------------------------------------------------------
+  | Footer
+  |--------------------------------------------------------------------------
+  |
+  */
+  .ft-Footer_Columns {
+    @media (--sm) {
+      @include Grid_Row;
+    }
+  }
+
+  .ft-Footer_Column {
+    @media (--sm) {
+      @include Grid_Column;
+
+      width: calc((4 / 8 * 100%) - (var(--Grid_Gutter) * 2));
+    }
+
+    @media (--lg) {
+      margin-right: calc(var(--Grid_Gutter) * 2);
+      margin-left: @margin-right;
+    }
+  }
+
+  .ft-Footer_Column-about {
+    @media (--sm-viewport) {
+      width: 100%;
+    }
+
+    @media (--md) {
+      width: calc((5 / 12 * 100%) - (var(--Grid_Gutter) * 2));
+    }
+
+    @media (--lg) {
+      width: calc((5 / 12 * 100%) - (var(--Grid_Gutter) * 4));
+    }
+  }
+
+  .ft-Footer_Column-links {
+    @media (--md) {
+      width: calc((4 / 12 * 100%) - (var(--Grid_Gutter) * 2));
+    }
+
+    @media (--lg) {
+      width: calc((4 / 12 * 100%) - (var(--Grid_Gutter) * 4));
+    }
+  }
+
+  .ft-Footer_Column-contact {
+    @media (--md) {
+      width: calc((3 / 12 * 100%) - (var(--Grid_Gutter) * 2));
+    }
+
+    @media (--lg) {
+      width: calc((3 / 12 * 100%) - (var(--Grid_Gutter) * 4));
+    }
+  }
+}
+

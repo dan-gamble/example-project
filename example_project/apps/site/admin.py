@@ -44,9 +44,9 @@ class FooterAdmin(admin.ModelAdmin):
                        'contact_link_text', ('contact_link_page', 'contact_link_url')],
         }),
         ('Extra links', {
-            'fields': [('terms_link_page', 'terms_link_url'),
-                       ('legal_link_page', 'legal_link_url'),
-                       ('privacy_link_page', 'privacy_link_url'), ],
+            'fields': ['terms_of_use_text', ('terms_of_use_page', 'terms_of_use_url'),
+                       'legal_text', ('legal_page', 'legal_url'),
+                       'privacy_policy_text', ('privacy_policy_page', 'privacy_policy_url')],
         }),
     ]
 

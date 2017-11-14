@@ -1,9 +1,10 @@
 /*
 |--------------------------------------------------------------------------
-| Footer
+| Buttons
 |--------------------------------------------------------------------------
-| The global site footer that appears at the bottom of every page
-|
-| @namespace: ft-
+| @namespace: btn-
 |
 */
+.btn-Primary {
+  @include Button-primary;
+}

@@ -458,7 +458,8 @@
         {
           "ignore": [
             "blockless-at-rules"
-          ]
+          ],
+          "ignoreAtRules": ["media"]
         }
       ],
       "no-duplicate-selectors": true,

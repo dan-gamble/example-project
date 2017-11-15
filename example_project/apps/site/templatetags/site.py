@@ -1,21 +1,17 @@
-import json
 import os
 
 import CommonMark
 import jinja2
+from bs4 import BeautifulSoup
 from cms.apps.pages.templatetags.pages import _navigation_entries
+from cms.html import process as process_html
 from django.conf import settings
+from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 from django_jinja import library
 from sorl.thumbnail import get_thumbnail
 
 from ..models import Footer, Header
-
-
-@library.global_function
-@jinja2.contextfunction
-def get_navigation_json(context, pages, section=None):
-    return json.dumps(_navigation_entries(context, pages, section, is_json=True))
 
 
 @library.global_function
@@ -149,6 +145,45 @@ def md(value, inline=True):
     allows arbitrary HTML.
     """
     return mark_safe(md_escaped(value, inline=inline))
+
+
+@library.filter
+@stringfilter
+def html(text):
+    # Return empty string if no text
+    if not text:
+        return ""
+
+    # Process HTML through cms parser
+    text = process_html(text)
+
+    # Load text into BS4
+    soup = BeautifulSoup(text, 'html.parser')
+
+    # Unwrap all image tags
+    for img in soup.find_all('img'):
+        img.parent.unwrap()
+
+    def wrap(to_wrap, wrap_in):
+        contents = to_wrap.replace_with(wrap_in)
+        wrap_in.append(contents)
+
+    # Wrap all table tags
+    for table in soup.find_all('table'):
+        div = soup.new_tag('div')
+        div['class'] = 'wys-TableWrap'
+        wrap(table, div)
+
+    # Wrap all iframes in intrinsic containers
+    for iframe in soup.find_all('iframe'):
+        for attr in ['width', 'height']:
+            if iframe.get(attr, None):
+                del iframe[attr]
+        wrapper = soup.new_tag('div', **{'class': 'wys-Intrinsic'})
+        iframe.wrap(wrapper)
+
+    # Force return string version of BS4 obj
+    return mark_safe(str(soup))
 
 
 @library.global_function

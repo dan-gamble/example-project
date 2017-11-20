@@ -3,7 +3,10 @@
   "main": "gulpfile.js",
   "dependencies": {
     "babel-polyfill": "6.23.0",
+    "django-lazy-image": "^0.0.13",
     "es6-promise": "^4.1.0",
+    "intersection-observer": "^0.4.3",
+    "postcss-fixie": "^2.0.0",
     "webpack-bundle-analyzer": "^2.9.1"
   },
   "devDependencies": {
@@ -459,7 +462,9 @@
           "ignore": [
             "blockless-at-rules"
           ],
-          "ignoreAtRules": ["media"]
+          "ignoreAtRules": [
+            "media"
+          ]
         }
       ],
       "no-duplicate-selectors": true,

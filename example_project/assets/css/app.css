@@ -79,6 +79,7 @@
 | vendor imports for obvious reasons.
 |
 */
+@import 'django-lazy-image/dist/css/lazy-image.css';
 
 /*
 |--------------------------------------------------------------------------

@@ -107,12 +107,14 @@ export class Navigation {
 
       if (schema.hasChildren) {
         schema.link.addEventListener('click', e => {
-          e.preventDefault()
+          if (window.innerWidth <= mediaBreakpoints.lg) {
+            e.preventDefault()
 
-          const isActive = !schema.active
+            const isActive = !schema.active
 
-          schema.active = isActive
-          schema.parent.classList.toggle(className, isActive)
+            schema.active = isActive
+            schema.parent.classList.toggle(className, isActive)
+          }
         })
         schema.back.addEventListener('click', () => {
           const isActive = !schema.active

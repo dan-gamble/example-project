@@ -1,11 +1,13 @@
 import 'babel-polyfill'
+import 'intersection-observer'
 import 'utils/class-list-polyfill'
 import 'utils/focus-ring'
+
+import LazyImage from 'django-lazy-image'
 
 import { svg4everybody } from './utils/svgforeverybody'
 
 import { Navigation } from './site'
-import LazyImage from './utils/lazy-image'
 import { externalLinks, iframeFix } from './utils'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,7 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const lazyImage = document.querySelector('.js-LazyImage')
   if (lazyImage) {
     const lazyImages = document.querySelectorAll('.js-LazyImage')
-    Array.from(lazyImages).map(image => new LazyImage({ el: image }))
+    const callback = (entries, observer) => {
+      Array.from(entries).forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          window.setTimeout(() => {
+            new LazyImage({ el: entry.target })
+            observer.unobserve(entry.target)
+          }, 150 * index)
+        }
+      })
+    }
+    /* eslint-disable compat/compat */
+    const observer = new IntersectionObserver(callback, {
+      threshold: 0.4
+    })
+    Array.from(lazyImages).forEach(image => observer.observe(image))
   }
 
   // If the browser isn't Safari, don't do anything

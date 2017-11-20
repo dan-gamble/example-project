@@ -1,13 +1,13 @@
 version: 2
 jobs:
   test_python:
+    working_directory: ~/example_project
     docker:
       - image: circleci/python:3.6.2
       - image: circleci/postgres:9.5.10
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: example_project
-    working_directory: example_project
     steps:
       - checkout
       - restore_cache:
@@ -40,9 +40,9 @@ jobs:
             python manage.py test
 
   test_assets:
+    working_directory: ~/example_project
     docker:
       - image: circleci/node:8.9.0
-    working_directory: example_project
     steps:
       - checkout
       - restore_cache:

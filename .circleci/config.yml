@@ -7,6 +7,7 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: example_project
+    working_directory: example_project
     steps:
       - checkout
       - restore_cache:
@@ -41,6 +42,7 @@ jobs:
   test_assets:
     docker:
       - image: circleci/node:8.9.0
+    working_directory: example_project
     steps:
       - checkout
       - restore_cache:

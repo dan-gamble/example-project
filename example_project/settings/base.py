@@ -130,6 +130,7 @@ INSTALLED_APPS = [
     'compressor',
 
     'django_jinja',
+    'django_lazy_image',
 
     'cms',
 
@@ -236,6 +237,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
         'DIRS': [
+            os.path.join(SITE_ROOT, 'assets/svg'),
             os.path.join(SITE_ROOT, 'templates'),
         ],
         'APP_DIRS': True,
@@ -246,7 +248,8 @@ TEMPLATES = [
             'newstyle_gettext': True,
             'extensions': DEFAULT_EXTENSIONS + [
                 'webpack_loader.contrib.jinja2ext.WebpackExtension',
-                'compressor.contrib.jinja2ext.CompressorExtension'
+                'compressor.contrib.jinja2ext.CompressorExtension',
+                'example_project.apps.site.extensions.DjangoNow',
             ],
             'bytecode_cache': {
                 'name': 'default',

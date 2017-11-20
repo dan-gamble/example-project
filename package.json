@@ -3,9 +3,11 @@
   "main": "gulpfile.js",
   "dependencies": {
     "babel-polyfill": "6.23.0",
+    "django-lazy-image": "^0.0.13",
     "es6-promise": "^4.1.0",
-    "vue": "^2.3.4",
-    "vuex": "^2.3.1"
+    "intersection-observer": "^0.4.3",
+    "postcss-fixie": "^2.0.0",
+    "webpack-bundle-analyzer": "^2.9.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
@@ -323,6 +325,10 @@
             "border-right",
             "border-bottom",
             "border-left",
+            "border-top-color",
+            "border-right-color",
+            "border-bottom-color",
+            "border-left-color",
             "border-radius",
             "border-top-left-radius",
             "border-top-right-radius",
@@ -455,6 +461,9 @@
         {
           "ignore": [
             "blockless-at-rules"
+          ],
+          "ignoreAtRules": [
+            "media"
           ]
         }
       ],

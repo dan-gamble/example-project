@@ -1,0 +1,102 @@
+/*
+|--------------------------------------------------------------------------
+| Bar
+|--------------------------------------------------------------------------
+| @namespace: ft-
+|
+*/
+.ft-Bar {
+  padding-top: 1vr;
+  padding-bottom: @padding-top;
+
+  font-size: 13px;
+  line-height: 20px;
+
+  background-color: var(--Color_Brand);
+  color: #fff;
+}
+
+.ft-Bar_Inner {
+  @include Grid_Container;
+}
+
+.ft-Bar_Body {
+  @media (--md) {
+    align-items: center;
+    justify-content: space-between;
+
+    display: flex;
+  }
+}
+
+.ft-Bar_Left {
+  @media (--sm) {
+    display: flex;
+  }
+}
+
+.ft-Bar_Copyright {
+  margin-right: var(--Grid_Gutter);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Links
+|--------------------------------------------------------------------------
+|
+*/
+.ft-Bar_Links {
+  display: flex;
+}
+
+.ft-Bar_LinksItem {
+  position: relative;
+
+  padding-right: 19px;
+
+  &:last-child {
+    padding-right: 0;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    bottom: 5px;
+
+    display: block;
+    width: 1px;
+
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.ft-Bar_Link {
+  font-weight: 700;
+
+  color: currentColor;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Right
+|--------------------------------------------------------------------------
+|
+*/
+.ft-Bar_Right {
+  margin-top: 0.5vr;
+
+  @media (--md) {
+    margin-top: 0;
+  }
+}
+
+.ft-Bar_Onespacemedia {
+  color: currentColor;
+}

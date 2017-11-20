@@ -1,25 +1,40 @@
 import 'babel-polyfill'
+import 'intersection-observer'
 import 'utils/class-list-polyfill'
 import 'utils/focus-ring'
 
-import Vue from 'vue'
-import App from './vue/App'
+import LazyImage from 'django-lazy-image'
 
-import LazyImage from './utils/lazy-image'
+import { svg4everybody } from './utils/svgforeverybody'
+
+import { Navigation } from './site'
 import { externalLinks, iframeFix } from './utils'
-
-new Vue(App).$mount('#app')
 
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body || document.documentElement
   body.classList.add('util-JSEnabled')
 
   externalLinks()
+  new Navigation()
 
   const lazyImage = document.querySelector('.js-LazyImage')
   if (lazyImage) {
     const lazyImages = document.querySelectorAll('.js-LazyImage')
-    Array.from(lazyImages).map(image => new LazyImage({ el: image }))
+    const callback = (entries, observer) => {
+      Array.from(entries).forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          window.setTimeout(() => {
+            new LazyImage({ el: entry.target })
+            observer.unobserve(entry.target)
+          }, 150 * index)
+        }
+      })
+    }
+    /* eslint-disable compat/compat */
+    const observer = new IntersectionObserver(callback, {
+      threshold: 0.4
+    })
+    Array.from(lazyImages).forEach(image => observer.observe(image))
   }
 
   // If the browser isn't Safari, don't do anything
@@ -35,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body || document.documentElement
     body.classList.add('is-iOS')
   }
+
+  svg4everybody()
 
   // This class is used for making the animation duration on CSS animations 0, initially
   setTimeout(() => {

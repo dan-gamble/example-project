@@ -62,29 +62,42 @@
       <link rel="stylesheet" href="{{ static('build/css/app.css') }}">
     {% endcompress %}
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-          rel="stylesheet">
-
     {% block css %}{% endblock %}
 
+    <script>
+      var body = document.documentElement || document.body
+
+      if (!('grid' in body.style)) {
+        var grid = document.createElement('link')
+        grid.href = '/static/build/css/grid-fallback.css'
+        grid.rel = 'stylesheet'
+        document.head.appendChild(grid)
+        body.className += ' util-NoGrid'
+      }
+
+      function hasNativeCSSProperties() {
+        var opacity = 0
+        var el = body
+        // Setup CSS properties.
+        el.style.setProperty('--test-opacity', opacity)
+        el.style.setProperty('opacity', 'var(--test-opacity)')
+        // Feature detect then remove all set properties.
+        var hasNativeCSSProperties = window.getComputedStyle(el).opacity == opacity
+        el.style.setProperty('--test-opacity', '')
+        el.style.opacity = ''
+        return hasNativeCSSProperties
+      }
+
+      if (!hasNativeCSSProperties()) {
+        var vars = document.createElement('link')
+        vars.href = '/static/build/css/vars-fallback.css'
+        vars.rel = 'stylesheet'
+        document.head.appendChild(vars)
+        body.className += ' util-NoCssVars'
+      }
+    </script>
+
     {% include 'base/_analytics.html' %}
-
-    {# Opbeat JS error tracking #}
-    {% if settings.OPBEAT %}
-      <script src="https://d3tvtfb6518e3e.cloudfront.net/3/opbeat.min.js"
-              data-org-id="{{ settings.OPBEAT.ORGANIZATION_ID }}"
-              data-app-id="{{ settings.OPBEAT.APP_ID }}">
-      </script>
-
-      {% if user.is_authenticated() %}
-        <script>
-          _opbeat('setUserContext', {
-            id: "{{ user.pk }}"
-          });
-        </script>
-      {% endif %}
-    {% endif %}
-
   </head>
 
   <body class="util-Preload util-IsTabbing {% block body_class %}{% endblock %}">
@@ -121,6 +134,8 @@
             {% block content_below %}{% endblock %}
           </div>
         {% endblock %}
+
+        {% include 'base/_footer.html' %}
       </div>
     {% endblock %}
 
@@ -134,5 +149,72 @@
 
       {% block compressed_js_last %}{% endblock %}
     {% endcompress %}
+
+    {# Opbeat JS error tracking #}
+    {% if settings.OPBEAT %}
+      <script src="https://d3tvtfb6518e3e.cloudfront.net/3/opbeat.min.js"
+              data-org-id="{{ settings.OPBEAT.ORGANIZATION_ID }}"
+              data-app-id="{{ settings.OPBEAT.APP_ID }}">
+      </script>
+
+      {% if user.is_authenticated() %}
+        <script>
+          _opbeat('setUserContext', {
+            id: "{{ user.pk }}"
+          });
+        </script>
+      {% endif %}
+    {% endif %}
+
+    <script>
+      (function (global, factory) {
+        typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+          typeof define === 'function' && define.amd ? define(factory) :
+            (global.lazyImage = factory());
+      }(this, (function () { 'use strict';
+
+        var classCallCheck = function (instance, Constructor) {
+          if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+          }
+        };
+
+        var LazyImage = function LazyImage(_ref) {
+          var _this = this;
+
+          var el = _ref.el;
+          classCallCheck(this, LazyImage);
+
+          this.el = el;
+          this.smallImage = this.el.querySelector('.img-Image_Image-small');
+          this.image = this.el.querySelector('.img-Image_Image[data-src]');
+          this.src = this.image.dataset.src.split(', ');
+          this.supportsObjectFit = 'objectFit' in document.documentElement.style;
+          this.loadedClass = 'img-Image_Image-loaded';
+
+          if (this.supportsObjectFit) {
+            this.image.addEventListener('load', function () {
+              _this.image.classList.add(_this.loadedClass);
+            });
+            this.image.addEventListener('transitionend', function (evt) {
+              if (evt.propertyName === 'opacity') {
+                _this.smallImage.parentNode.removeChild(_this.smallImage);
+              }
+            });
+
+            this.image.setAttribute('src', this.src.join(', '));
+          } else {
+            var div = document.createElement('div');
+            div.className = 'img-Image_Image img-Image_Image-large img-Image_Image-noObjectFit ' + this.loadedClass;
+            var imageUrl = window.devicePixelRatio >= 2 ? this.src[1] : this.src[0];
+            div.style.backgroundImage = 'url(' + imageUrl + ')';
+            this.image.parentNode.replaceChild(div, this.image);
+          }
+        };
+
+        return LazyImage;
+
+      })));
+    </script>
   </body>
 </html>

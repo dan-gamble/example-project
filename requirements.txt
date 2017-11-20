@@ -1,5 +1,6 @@
 argon2-cffi==16.3.0
 astroid==1.5.3
+beautifulsoup4==4.6.0
 certifi==2017.7.27.1
 cffi==1.11.2
 chardet==3.0.4
@@ -13,6 +14,7 @@ django-extensions==1.9.7
 django-flexible-images==1.0.7
 django-historylinks==1.1.0
 django-jinja==2.4.0
+django-lazy-image==0.0.1
 django-reversion==2.0.9
 django-suit==0.2.25
 django-watson==1.3.1
@@ -55,7 +57,7 @@ rjsmin==1.0.12
 six==1.11.0
 social-auth-app-django==2.0.0
 social-auth-core==1.5.0
-sorl-thumbnail==12.4a1
+-e git://github.com/jazzband/sorl-thumbnail.git@eff221e0e0ea6054c62a31ca35fc1854e1f3287a#egg=sorl_thumbnail
 tinypng==3.0.0
 typing==3.6.2
 urllib3==1.22

@@ -6,7 +6,7 @@ cffi==1.11.2
 chardet==3.0.4
 CommonMark==0.7.4
 defusedxml==0.5.0
-Django==1.11.7
+Django==1.11.28
 django-appconf==1.0.2
 django-cachalot==1.5.0
 django-compressor==2.2

@@ -60,6 +60,6 @@ social-auth-core==1.5.0
 -e git://github.com/jazzband/sorl-thumbnail.git@eff221e0e0ea6054c62a31ca35fc1854e1f3287a#egg=sorl_thumbnail
 tinypng==3.0.0
 typing==3.6.2
-urllib3==1.22
+urllib3==1.26.5
 Werkzeug==0.12.2
 wrapt==1.10.11

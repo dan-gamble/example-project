@@ -38,7 +38,7 @@ onespacemedia-server-management==3.0.2
 opbeat==3.5.3
 paramiko==1.16.0
 pep8==1.7.1
-Pillow==4.3.0
+Pillow==8.2.0
 psycopg2==2.7.3.2
 pycparser==2.18
 pycrypto==2.6.1
